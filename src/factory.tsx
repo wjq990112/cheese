@@ -1,5 +1,4 @@
-import type { ParentProps } from 'solid-js';
-import type { StyledComponent, StyledComponentFactory } from './types';
+import type { StyledComponent } from './types';
 import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
