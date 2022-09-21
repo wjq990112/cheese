@@ -1,22 +1,20 @@
-import type { ParentComponent, ValidComponent } from 'solid-js';
-import type { StyledComponent } from './types';
+import type { ParentProps } from 'solid-js';
+import type { StyledComponent, StyledComponentFactory } from './types';
 import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
-const createStyledComponent: StyledComponent = (component: ValidComponent) => {
-  return (...args) => {
-    const StyledComponent: ParentComponent = (props) => {
-      const [local, others] = splitProps(props, ['children']);
+const createStyledComponent: StyledComponent = (component) => {
+  return (...args) =>
+    (props) => {
+      const [local, others] = splitProps(props, ['children'] as const);
 
       return (
         <Dynamic component={component} {...others}>
+          {/* @ts-ignore */}
           {local.children}
         </Dynamic>
       );
     };
-
-    return StyledComponent;
-  };
 };
 
 export default createStyledComponent;
