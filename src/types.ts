@@ -1,9 +1,9 @@
-import type { Component, ComponentProps, JSX, ParentComponent } from 'solid-js';
-
-export type ValidComponent<P extends object = {}> =
-  | keyof JSX.IntrinsicElements
-  | Component<P>
-  | (string & {});
+import type {
+  ComponentProps,
+  JSX,
+  ParentComponent,
+  ValidComponent,
+} from 'solid-js';
 
 export type DefaultTheme = {};
 
@@ -20,7 +20,11 @@ export type StyleFunction<Props = {}> = (
 ) => Interpolation<Props>;
 
 export type StyleObject<Props = {}> = {
-  [P in keyof JSX.CSSProperties]: JSX.CSSProperties[P] | StyleFunction<Props>;
+  /** @see https://github.com/styled-components/styled-components/blob/main/packages/styled-components/src/types.ts#L217-L221 */
+  // [key: string]: string | number | StyleObject<Props> | StyleFunction<Props>;
+  [K in keyof JSX.CSSProperties]:
+    | JSX.CSSProperties[K]
+    | ((...args: unknown[]) => JSX.CSSProperties[K]);
 };
 
 export type Interpolation<Props> =
@@ -38,18 +42,13 @@ export type StyledComponentFactory<InnerProps extends object = {}> = <
   ...args: Interpolation<Props>[]
 ) => ParentComponent<Props>;
 
-export type StyledComponent = <
-  Tag extends ValidComponent<Props> = ValidComponent,
-  InnerProps extends object = ComponentProps<Tag>,
-  OuterProps extends object = {},
-  Props extends object = InnerProps & OuterProps
->(
-  tag: Tag
-) => StyledComponentFactory<Props>;
+export type StyledComponent = <Comp extends ValidComponent = ValidComponent>(
+  component: Comp
+) => StyledComponentFactory<ComponentProps<Comp>>;
 
 export type StyledComponentWithTag = {
   [Tag in keyof JSX.IntrinsicElements]: StyledComponentFactory<
-    JSX.IntrinsicElements[Tag]
+    ComponentProps<Tag>
   >;
 };
 

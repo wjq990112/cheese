@@ -1,4 +1,5 @@
-import type { StyledComponent, ValidComponent } from './types';
+import type { ValidComponent } from 'solid-js';
+import type { StyledComponent } from './types';
 import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
