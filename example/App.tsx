@@ -2,6 +2,7 @@ import type { Component } from 'solid-js';
 import styled from '@holiday-lab/cheese';
 import Basic from './basic';
 import WithProps from './with-props';
+import Extend from './extend';
 
 const Wrapper = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ const App: Component = () => {
     <Wrapper>
       <Basic />
       <WithProps />
+      <Extend />
     </Wrapper>
   );
 };

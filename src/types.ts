@@ -53,3 +53,5 @@ export type StyledComponentWithTag = {
 };
 
 export type Styled = StyledComponent & StyledComponentWithTag;
+
+export type Rules = TemplateStringsArray | StyleObject | StyleFunction;
