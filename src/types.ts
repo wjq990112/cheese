@@ -15,11 +15,11 @@ export type Keyframes = {
   rules: string;
 };
 
-export type StyleFunction<Props = {}> = (
+export type StyleFunction<Props extends object = {}> = (
   executionContext: ExecutionContext & Props
 ) => Interpolation<Props>;
 
-export type StyleObject<Props = {}> = {
+export type StyleObject<Props extends object = {}> = {
   /** @see https://github.com/styled-components/styled-components/blob/main/packages/styled-components/src/types.ts#L217-L221 */
   // [key: string]: string | number | StyleObject<Props> | StyleFunction<Props>;
   [K in keyof JSX.CSSProperties]:
@@ -27,7 +27,7 @@ export type StyleObject<Props = {}> = {
     | ((...args: unknown[]) => JSX.CSSProperties[K]);
 };
 
-export type Interpolation<Props> =
+export type Interpolation<Props extends object = {}> =
   | TemplateStringsArray
   | StyleFunction<Props>
   | StyleObject<Props>
@@ -54,4 +54,7 @@ export type StyledComponentWithTag = {
 
 export type Styled = StyledComponent & StyledComponentWithTag;
 
-export type Rules = TemplateStringsArray | StyleObject | StyleFunction;
+export type Styles<Props extends object = {}> =
+  | TemplateStringsArray
+  | StyleObject<Props>
+  | StyleFunction<Props>;
