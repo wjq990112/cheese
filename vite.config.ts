@@ -5,15 +5,15 @@ import solidPlugin from 'vite-plugin-solid';
 
 export default defineConfig({
   plugins: [solidPlugin()],
-  server: {
-    host: true,
-    port: 3000,
-    open: true,
-  },
   resolve: {
     alias: {
       '@holiday-lab/cheese': resolve(__dirname, 'src'),
     },
+  },
+  server: {
+    host: true,
+    port: 3000,
+    open: true,
   },
   build: {
     lib: {
@@ -25,4 +25,5 @@ export default defineConfig({
     minify: false,
     target: 'esnext',
   },
+  test: {},
 });
