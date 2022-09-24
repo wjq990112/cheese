@@ -1,1 +1,1 @@
-export * from './isTemplateStringsArray';
+export * from './is';
