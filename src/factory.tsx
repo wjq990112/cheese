@@ -1,11 +1,13 @@
 import type { ValidComponent } from 'solid-js';
-import type { StyledComponent } from './types';
+import type { StyleComponent, StyledComponent } from './types';
 import { splitProps } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 
-const createStyledComponent: StyledComponent = (component) => {
-  return (...args) => {
-    return (props) => {
+const createStyledComponent: StyleComponent = (component) => {
+  return (styles, ...interpolations) => {
+    const Comp = ((props) => {
+      Comp.className = '';
+      Comp.classList = [];
       const [local, others] = splitProps(props, ['children'] as const);
 
       return (
@@ -13,7 +15,9 @@ const createStyledComponent: StyledComponent = (component) => {
           {local.children}
         </Dynamic>
       );
-    };
+    }) as StyledComponent;
+
+    return Comp;
   };
 };
 

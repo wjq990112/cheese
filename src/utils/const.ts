@@ -1,2 +1,2 @@
-export const EMPTY_ARRAY = [] as ReadonlyArray<any>;
-export const EMPTY_OBJECT = {} as Readonly<{}>;
+export const EMPTY_ARRAY = Object.freeze<unknown>([]);
+export const EMPTY_OBJECT = Object.freeze<unknown>({});

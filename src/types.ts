@@ -7,7 +7,7 @@ import type {
 
 export type DefaultTheme = {};
 
-export type ExecutionContext = { theme: DefaultTheme };
+export type ExecutionContext = { theme?: DefaultTheme };
 
 export type Keyframes = {
   id: string;
@@ -35,24 +35,31 @@ export type Interpolation<Props extends object = {}> =
   | string
   | number;
 
+export type StyledComponent<Props extends object = {}> =
+  ParentComponent<Props> & {
+    className: string;
+    classList: string[];
+  };
+
 export type StyledComponentFactory<InnerProps extends object = {}> = <
   OuterProps extends object = {},
   Props extends object = InnerProps & OuterProps
 >(
-  ...args: Interpolation<Props>[]
-) => ParentComponent<Props>;
+  styles: Styles<Props>,
+  ...interpolations: Interpolation<Props>[]
+) => StyledComponent<Props>;
 
-export type StyledComponent = <Comp extends ValidComponent = ValidComponent>(
+export type StyleComponent = <Comp extends ValidComponent = ValidComponent>(
   component: Comp
 ) => StyledComponentFactory<ComponentProps<Comp>>;
 
-export type StyledComponentWithTag = {
+export type StyleComponentWithTag = {
   [Tag in keyof JSX.IntrinsicElements]: StyledComponentFactory<
     ComponentProps<Tag>
   >;
 };
 
-export type Styled = StyledComponent & StyledComponentWithTag;
+export type Styled = StyleComponent & StyleComponentWithTag;
 
 export type Styles<Props extends object = {}> =
   | TemplateStringsArray

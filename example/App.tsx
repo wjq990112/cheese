@@ -3,7 +3,6 @@ import styled from '@holiday-lab/cheese';
 import Basic from './basic';
 import WithProps from './with-props';
 import Extend from './extend';
-import ByCss from './by-css';
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,7 +15,6 @@ const App: Component = () => {
       <Basic />
       <WithProps />
       <Extend />
-      <ByCss />
     </Wrapper>
   );
 };

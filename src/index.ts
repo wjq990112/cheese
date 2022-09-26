@@ -8,5 +8,4 @@ tags.forEach((tag) => {
   styled[tag] = styled(tag);
 });
 
-export * from './css';
 export default styled;
